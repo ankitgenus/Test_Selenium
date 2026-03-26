@@ -1,11 +1,9 @@
 package base;
 
+import io.github.bonigarcia.wdm.WebDriverManager;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
-import org.testng.annotations.AfterSuite;
-import org.testng.annotations.BeforeSuite;
-
-import java.time.Duration;
+import org.testng.annotations.*;
 
 public class BaseTest {
 
@@ -13,15 +11,20 @@ public class BaseTest {
 
     @BeforeSuite
     public void setUp(){
-
+        System.out.println("BeforeSuite");
+        WebDriverManager.chromedriver().setup();
         driver = new ChromeDriver();
-        driver.get("http://10.58.13.11/#/core/login");
-        driver.manage().timeouts().implicitlyWait(Duration.ofSeconds(10));
+    }
+
+    @Test
+    public void test(){
+        System.out.println("Test running");
+        driver.get("https://www.google.com");
     }
 
     @AfterSuite
     public void tearDown(){
-
-        driver.close();
+        System.out.println("AfterSuite");
+        driver.quit();
     }
 }
